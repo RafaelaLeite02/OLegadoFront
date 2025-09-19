@@ -1,0 +1,11 @@
+ <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                <div class="absolute bottom-3 left-3 text-white">
+                    <p class="text-yellow-400 font-sembold flex items-center">
+                        Ler a mente
+                    </p>
+                    <h2 class="text-xl font-bold">Alice Cullen</h2>
+                    <p class="text-sm text-red-400">Família Cullen</p>
+                </div>
+                <div class="absolute rounded-full border-red-300 border-1 top-2 right-2 p-1 text-red-400 font-bold text-sm">
+                  Vampiro
+                </div >
