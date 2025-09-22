@@ -25,6 +25,7 @@
         </div>
     </div>
 </div>
+<hr class="h-1 border-0 bg-gradient-to-r from-stone-950 via-red-700 to-stone-950">
 </template>
 
 <script>

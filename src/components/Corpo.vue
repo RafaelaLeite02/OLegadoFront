@@ -1,20 +1,20 @@
 <template>
-    <main class=" flex items-center w-auto h-500 bg-stone-950 flex-col p-8">
+    <main class=" flex items-center w-auto h-500 bg-stone-950 flex-col p-8 pt-25">
         <h1 class="text-neutral-50 text-[50px]  ">Os <strong class="text-red-600 font-normal">Imortais</strong></h1>
         <p class="text-neutral-50 text-[20px] m-5 ">Cada personagem carrega consigo seculos de historia, poder e
             misterio. Explore suas origens, habilidades e os laços que os unem nesta saga eterna.</p>
-        <!--<section class="flex flex-col item-center justify-center text-center p-5">
-            <div
-                class=" w-100 h-15 bg-gradient-to-b from-stone-950  via-gray-900 to-stone-950 flex flex-row justify-between item-center rounded-full text-neutral-50 p-2">
-                <a href="#" alt="todos" class="flex border-2 rounded-full border-neutral-600 border-solid h-12 w-24 p-2">
-                    <img src="/public/img/playlist.png" alt="coração" class="w-6 h-6 mr-2" />Todos</a>
-                <a href="#" alt="todos" class="flex border-1 rounded-full border-neutral-600 border-solid h-12 w-24 p-2"> <img
-                        src="/public/img/bookmark.png" alt="coração" class="w-6 h-6 mr-2" />Livros</a>
-                <a href="#" alt="todos" class="flex border-1 rounded-full border-neutral-600 border-solid h-12 w-24 p-2">
-                    <img src="/public/img/video-editing.png" alt="coração" class="w-6 h-6 mr-2" />Filme</a>
-            </div>
-            <p class="text-neutral-50 m-6"><strong> 5 </strong>personagens</p>
-        </section> -->
+        <section class="w-[110%] flex flex-col item-center text-center p-5 pt-17 bg-gradient-to-b from-stone-950  via-gray-900 to-stone-950">
+            <div 
+                class=" w-[19%] ml-[40%] h-15 flex flex-row justify-between text-center item-center rounded-full text-neutral-50 p-2">
+                <a href="#" alt="todos" class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]">
+                   Todos</a>
+                <a href="#" alt="todos" class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]"> 
+                       Livros</a>
+                <a href="#" alt="todos" class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]">
+                    Filme</a>
+            </div> 
+            <p class="text-neutral-50 m-6"><strong class="text-red-600 font-normal"> 5 </strong>personagens</p>
+        </section> 
         <section class="flex flex-wrap m-6 items-center w-[80%] ml-30">
 
             <section class="relative w-90 rounded-2xl overflow-hidden shadow-xl bg-gray-900 text-white m-10">
