@@ -1,22 +1,23 @@
 <template>
   <Home />
   <Corpo />
-  
+  <Footer />
+
 </template>
 
-<script >
+<script>
 import Home from './components/Home.vue';
 import Corpo from './components/Corpo.vue';
+import Footer from './components/Footer.vue';
 
-export default{
-  components:{
+export default {
+  components: {
     Home,
-    Corpo
+    Corpo,
+    Footer
 
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
