@@ -1,24 +1,20 @@
 <template>
-    <main class=" flex items-center w-auto h-400 bg-stone-950 flex-col p-8 pt-25">
+    <main class=" flex items-center w-auto h-410 bg-stone-950 flex-col p-8 pt-25">
         <h1 class="text-neutral-50 text-[50px]  ">Os <strong class="text-red-600 font-normal">Imortais</strong></h1>
         <p class="text-neutral-50 text-[20px] m-5 ">Cada personagem carrega consigo seculos de historia, poder e
             misterio. Explore suas origens, habilidades e os laços que os unem nesta saga eterna.</p>
-        <section
-            class="w-[105%] flex flex-col item-center text-center p-5 pt-17 bg-gradient-to-b from-stone-950  via-gray-900 to-stone-950">
-            <div
+        <section class="w-[105%] flex flex-col item-center text-center p-5 pt-17 bg-gradient-to-b from-stone-950  via-gray-900 to-stone-950">
+            <div 
                 class=" w-[19%] ml-[40%] h-15 flex flex-row justify-between text-center item-center rounded-full text-neutral-50 p-2">
-                <a href="#" alt="todos"
-                    class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]">
-                    Todos</a>
-                <a href="#" alt="todos"
-                    class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]">
-                    Livros</a>
-                <a href="#" alt="todos"
-                    class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]">
+                <a href="#" alt="todos" class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]">
+                   Todos</a>
+                <a href="#" alt="todos" class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]"> 
+                       Livros</a>
+                <a href="#" alt="todos" class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2  hover:border-red-700 hover:border-b-2 hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-500 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)]">
                     Filme</a>
-            </div>
+            </div> 
             <p class="text-neutral-50 m-5"><strong class="text-red-600 font-normal"> 5 </strong>personagens</p>
-        </section>
+        </section> 
         <section class="flex flex-wrap m-6 items-center w-[80%] ml-30">
 
             <section class="relative w-96 rounded-2xl overflow-hidden shadow-xl bg-gray-900 text-white m-10">
@@ -169,23 +165,19 @@
                     </div>
                 </div>
             </section>
-
-
-
         </section>
-        <section class="w-[25%] flex flex-col item-center text-center p-5 pt-17 ">
-            <button
-                class="text-neutral-300 border-0 bg-gradient-to-r from-stone-950 via-gray-900 to-stone-950 text-xl  hover:text-[18px] hover:text-red-800 hover:font-weight:900 transition-transform delay-200 duration-300 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)] ">Adicionar
-                Personagem</button>
-        </section>
-
+        <criar-personagem />
     </main>
-
 </template>
 
 <script>
+import CriarPersonagem from './CriarPersonagem.vue';
+
 export default {
     name: 'Corpo',
+    components:{
+        CriarPersonagem
+    }
 }
 </script>
 
