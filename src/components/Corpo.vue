@@ -167,16 +167,19 @@
             </section>
         </section>
         <criar-personagem />
+        <Modal />
     </main>
 </template>
 
 <script>
 import CriarPersonagem from './CriarPersonagem.vue';
+import Modal from './Modal.vue';
 
 export default {
     name: 'Corpo',
     components:{
-        CriarPersonagem
+        CriarPersonagem,
+        Modal
     }
 }
 </script>

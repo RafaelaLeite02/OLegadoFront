@@ -1,6 +1,6 @@
 <template>
   <div v-if="visivel" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-    <div class="w-full max-w-5xl overflow-hidden rounded-xl bg-gray-950 shadow-2xl">
+    <div class="w-full max-w-5xl overflow-y-auto rounded-xl bg-gray-950 shadow-2xl">
       <div class="relative p-8">
         <button @click="$emit('fechar')" class="absolute right-6 top-6 text-gray-400 hover:text-white transition-colors duration-200">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-// Define as "props" que o componente pode receber
+
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
@@ -99,6 +99,6 @@ const props = defineProps({
   },
 });
 
-// Define os "emits" (eventos) que o componente pode emitir
+
 const emit = defineEmits(['fechar']);
 </script>
