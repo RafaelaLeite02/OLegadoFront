@@ -6,9 +6,9 @@
                 Personagem</button>
         </section>
 
-        <div v-if="modalAberto" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+        <div v-if="modalAberto" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-stone-950  via-red-950 to-stone-950 bg-opacity-75">
             <div
-                class="w-full max-w-4xl overflow-y-auto scroll-smooth rounded-xl bg-gray-950 shadow-2xl flex flex-col max-h-[90vh]">
+                class="w-full max-w-4xl overflow-y-auto scroll-smooth rounded-xl bg-stone-950 shadow-2xl flex flex-col max-h-[90vh]">
 
                 <div class="relative p-8">
                     <button @click="fecharModal"
@@ -20,14 +20,14 @@
                         </svg>
                     </button>
 
-                    <h2 class="mb-10 text-3xl font-bold text-center text-red-600">Adicione o personagem</h2>
+                    <h2 class="mb-10 text-3xl font-bold text-center text-neutral-300">Adicione o personagem</h2>
 
                     <form @submit.prevent="salvarPersonagem" class="space-y-6">
                         <div class="flex flex-col items-center mb-5">
-                            <label for="foto" class="block text-sm font-medium text-gray-300 mb-6">Foto do
+                            <label for="foto" class="block text-[15px] font-medium text-gray-300 mb-3">Foto do
                                 Personagem</label>
                             <div
-                                class="relative w-40 h-40 rounded-full border-4 border-red-700 overflow-hidden flex items-center justify-center bg-gray-800">
+                                class="relative w-40 h-40 rounded-full border-4 border-red-900 overflow-hidden flex items-center justify-center bg-gray-800">
                                 <img v-if="urlFotoPreview" :src="urlFotoPreview" alt="Prévia da Foto"
                                     class="absolute inset-0 w-full h-full object-cover">
                                 <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-gray-500"
@@ -38,10 +38,10 @@
                                 <input type="file" id="foto" name="foto" @change="handleFileUpload"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                             </div>
-                            <p class="mt-5 text-xs text-gray-400">Clique na área acima para carregar uma imagem</p>
+                            <p class="mt-3 text-[15px] text-gray-400">Clique na área acima para carregar uma imagem</p>
                         </div>
 
-                        <div class="w-[100%] bg-gray-950 rounded-xl shadow-lg mb-10 mt-25">
+                        <div class="w-[100%] rounded-xl shadow-lg mb-10 mt-20">
                             <div class="flex flex-col sm:flex-row gap-6">
                                 <div class="w-full sm:w-1/2">
                                     <label for="filtro-tipo" class="block text-sm font-medium text-gray-300 mb-2">A onde
@@ -85,6 +85,21 @@
                             </div>
                         </div>
 
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 mt-10">
+                            <div> <label for="tipoCriatura" class="block text-sm font-medium text-gray-300">Tipo de
+                                    Criatura</label>
+                                <input type="text" id="tipoCriatura" name="tipoCriatura" v-model="form.tipoCriatura"
+                                    class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
+                                    placeholder="Ex: Vampiro">
+                            </div>
+                            <div>
+                                <label for="cla" class="block text-sm font-medium text-gray-300">Cla / Familia</label>
+                                <input type="text" id="cla" name="cla" v-model="form.cla"
+                                    class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
+                                    placeholder="Ex: Cullen">
+                            </div>
+                        </div>
+
                         <div class="mb-10 mt-10">
                             <label for="biografia" class="block text-sm font-medium text-gray-300">História &
                                 Biografia</label>
@@ -120,10 +135,10 @@
 
                         <div class="flex justify-center pt-4 item-center text-center  w-[] ">
                             <button type="submit"
-                                class="text-neutral-300 border-0 bg-gradient-to-r from-stone-950 via-gray-900 to-stone-950 text-xl  hover:text-[18px] hover:text-red-500 hover:font-weight:900 transition-transform delay-200 duration-200 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)] cursor-pointer font-bold">Adicionar Personagem
+                                class="text-neutral-300 border-0 bg-gradient-to-r from-stone-950 via-gray-900 to-stone-950 text-xl  hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-200 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)] cursor-pointer font-bold">Adicionar
+                                Personagem
                             </button>
                         </div>
-                        <div v-show="salvarPersonagem() == true" class="text-red-500">{{ mensagem }}</div>
 
                     </form>
                 </div>
@@ -141,6 +156,8 @@ const form = ref({
     nome: '',
     titulo: '',
     idade: '',
+    tipoCriatura: '',
+    cla: '',
     biografia: '',
     habilidades: '',
     personalidade: '',
@@ -192,7 +209,7 @@ const salvarPersonagem = () => {
     console.log('Dados do Personagem:', form.value);
     console.log('Filtro de Tipo:', tipoSelecionado.value);
     console.log('Filtro de Título:', tituloSelecionado.value);
-    mensagem = 'Personagem salvo! (Verifique o console para os dados';
+    alert('Personagem salvo! ');
     fecharModal();
 };
 
@@ -201,6 +218,8 @@ const resetForm = () => {
         nome: '',
         titulo: '',
         idade: '',
+        tipoCriatura: '',
+        cla: '',
         biografia: '',
         habilidades: '',
         personalidade: '',
