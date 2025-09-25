@@ -6,7 +6,8 @@
                 Personagem</button>
         </section>
 
-        <div v-if="modalAberto" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-stone-950  via-red-950 to-stone-950 bg-opacity-75">
+        <div v-if="modalAberto"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-stone-950  via-red-950 to-stone-950 bg-opacity-75">
             <div
                 class="w-full max-w-4xl overflow-y-auto scroll-smooth rounded-xl bg-stone-950 shadow-2xl flex flex-col max-h-[90vh]">
 
@@ -136,7 +137,7 @@
                         <div class="flex justify-center pt-4 item-center text-center  w-[] ">
                             <button type="submit"
                                 class="text-neutral-300 border-0 bg-gradient-to-r from-stone-950 via-gray-900 to-stone-950 text-xl  hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200 duration-200 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)] cursor-pointer font-bold">Adicionar
-                                Personagem
+                                  {{ personagemParaEditar ? 'Salvar Alterações' : 'Criar Personagem' }}
                             </button>
                         </div>
 
@@ -164,6 +165,8 @@ const form = ref({
     nivelPoder: 1,
     foto: null
 });
+
+const emit = defineEmits(['personagem-criado']);
 
 
 const tipoSelecionado = ref('');
@@ -206,10 +209,23 @@ const handleFileUpload = (event) => {
 };
 
 const salvarPersonagem = () => {
-    console.log('Dados do Personagem:', form.value);
-    console.log('Filtro de Tipo:', tipoSelecionado.value);
-    console.log('Filtro de Título:', tituloSelecionado.value);
-    alert('Personagem salvo! ');
+
+    const novoPersonagem = {
+        nome: form.value.nome,
+        familia: form.value.cla,
+        descricao: form.value.biografia,
+        tipo: form.value.tipoCriatura,
+        idade: form.value.idade,
+        foto: urlFotoPreview.value,
+        biografia: form.value.biografia,
+        habilidades: form.value.habilidades.split(',').map(item => item.trim()),
+        personalidade: form.value.personalidade.split(',').map(item => item.trim()),
+        nivelPoder: form.value.nivelPoder
+    };
+
+
+    emit('personagem-criado', novoPersonagem);
+
     fecharModal();
 };
 
