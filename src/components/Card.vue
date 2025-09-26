@@ -1,29 +1,29 @@
 <template>
   <section class="relative w-96 rounded-2xl overflow-hidden shadow-xl bg-gray-900 text-white m-10">
     <div class="relative h-52">
-      <img :src="personagem.foto" :alt="personagem.nome" class="w-full h-full object-cover" />
+      <img :src="personagem.FotoURL" :alt="personagem.Name" class="w-full h-full object-cover" /> 
       <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
       <div class="absolute border-1 rounded-full p-1 top-2 right-2 text-red-500 font-semibold text-sm">
-        {{ personagem.tipo }}
+        {{ personagem.TipoCriatura ? personagem.TipoCriatura.nome : 'N/A' }} 
       </div>
 
       <div class="absolute bottom-3 left-3">
-        <p class="text-yellow-400 font-semibold flex items-center" v-if="personagem.subtipo">
-          {{ personagem.familia }}
+        <p class="text-yellow-400 font-semibold flex items-center" v-if="personagem.Cla">
+          {{ personagem.Cla.nome }}
         </p>
-        <h2 class="text-xl font-bold">{{ personagem.nome }}</h2>
+        <h2 class="text-xl font-bold">{{ personagem.Name }}</h2>
       </div>
     </div>
 
     <div class="p-5 space-y-4">
       <p class="text-sm text-gray-300">
-        {{ personagem.descricao }}
+        {{ personagem.Descricao }}
       </p>
 
       <div>
         <p class="text-xs uppercase text-gray-400">Idade:</p>
-        <p class="text-sm font-medium">{{ personagem.idade }}</p>
+        <p class="text-sm font-medium">{{ personagem.Idade }}</p>
       </div>
 
       <div class="pt-3">

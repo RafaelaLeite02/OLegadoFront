@@ -22,8 +22,7 @@
         </section>
         <section class="flex flex-wrap m-6 items-center w-[95%] ml-30">
 
-            <section @click="abrirModalCriar" 
-            class="flex flex-wrap m-6 items-center w-[80%] ml-30">
+            <section @click="abrirModalCriar" class="flex flex-wrap m-6 items-center w-[80%] ml-30">
                 <Card v-for="personagem in personagens" :key="personagem.nome" :personagem="personagem"
                     @abrir-modal="abrirModalComPersonagem" />
 
@@ -33,6 +32,14 @@
                 @deletar="deletarPersonagem" @editar="iniciarEdicao" />
 
 
+        </section>
+        <section>
+            <CriarPersonagem v-if="modalCriarPersonagemVisivel" @close="fecharModalCriar"
+                @personagem-criado="adicionarNovoPersonagem" />
+
+            <div class="lista-de-cards">
+                <Card v-for="p in personagens" :key="p.id" :personagem="p" @abrir-modal="abrirModalComPersonagem" />
+            </div>
         </section>
         <CriarPersonagem :visivel="modalCriarPersonagemVisivel" :personagem-para-editar="personagemSendoEditado"
             @fechar-modal="fecharModalCriar" @personagem-criado="adicionarNovoPersonagem"
@@ -48,47 +55,7 @@ import Modal from './Modal.vue';
 
 
 
-const personagens = ref([
-    {
-        nome: 'Isabella Swan',
-        familia: 'Família Cullen',
-        descricao: 'Só quer ser uma vampira e quando conseguiu virou rara.',
-        tipo: 'Vampira',
-        subtipo: 'Sonsa',
-        idade: 'Mais de 100 anos (aparenta 19)',
-        foto: '/img/bella.webp',
-        biografia: 'Sua biografia aqui.',
-        habilidades: ['Nenhum', 'Sonsa'],
-        personalidade: ['Sonsa', 'Protetora'],
-        nivelPoder: 3
-    },
-    {
-        nome: 'Alice Cullen',
-        familia: 'Família Cullen',
-        descricao: 'Maravilhosa, melhor personagem EVERRRRRR.',
-        tipo: 'Vampiro',
-        subtipo: 'Ver o futuro',
-        idade: 'Mais de 100 anos (aparenta 19)',
-        foto: '/img/alice.jpg',
-        biografia: 'Sua biografia aqui.',
-        habilidades: ['Previsão', 'Velocidade'],
-        personalidade: ['Otimista', 'Leal'],
-        nivelPoder: 7
-    },
-    {
-        nome: 'Jasper Cullen',
-        familia: 'Família Cullen',
-        descricao: '#SuperLegal sem comentarios para esse maravilhoso.',
-        tipo: 'Vampiro',
-        subtipo: 'Convencer os seres',
-        idade: 'Mais de 100 anos (aparenta 19)',
-        foto: '/img/jasper.jpg',
-        biografia: 'Sua biografia aqui.',
-        habilidades: ['Empatia', 'Força'],
-        personalidade: ['Calmo', 'Inteligente'],
-        nivelPoder: 8
-    }
-]);
+const personagens = ref([]);
 
 const personagemSelecionado = ref(null);
 const personagemSendoEditado = ref(null);
@@ -112,32 +79,32 @@ const deletarPersonagem = (personagemParaDeletar) => {
 
 
 const iniciarEdicao = (personagemParaEditar) => {
-  personagemSendoEditado.value = personagemParaEditar;
-  modalCriarPersonagemVisivel.value = true;
-  fecharModal();
+    personagemSendoEditado.value = personagemParaEditar;
+    modalCriarPersonagemVisivel.value = true;
+    fecharModal();
 };
 
 const atualizarPersonagem = (personagemAtualizado) => {
-  const index = personagens.value.findIndex(p => p.nome === personagemAtualizado.nome);
-  if (index !== -1) {
-    personagens.value[index] = personagemAtualizado;
-  }
-  fecharModalCriar();
+    const index = personagens.value.findIndex(p => p.nome === personagemAtualizado.nome);
+    if (index !== -1) {
+        personagens.value[index] = personagemAtualizado;
+    }
+    fecharModalCriar();
 };
 
 const adicionarNovoPersonagem = (novoPersonagem) => {
-  personagens.value.push(novoPersonagem);
-  fecharModalCriar();
+    personagens.value.push(novoPersonagem);
+    fecharModalCriar();
 };
 
 
 const abrirModalCriar = () => {
-  personagemSendoEditado.value = null; 
-  modalCriarPersonagemVisivel.value = true;
+    personagemSendoEditado.value = null;
+    modalCriarPersonagemVisivel.value = true;
 };
 
 const fecharModalCriar = () => {
-  modalCriarPersonagemVisivel.value = false;
+    modalCriarPersonagemVisivel.value = false;
 };
 
 </script>

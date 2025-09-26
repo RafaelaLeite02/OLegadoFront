@@ -1,6 +1,6 @@
 <template>
-    <div v-if="visivel && personagem" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-stone-950  via-red-950 to-stone-950 bg-opacity-75">
-        <div class="w-full max-w-5xl overflow-y-auto rounded-xl bg-gray-950 shadow-2xl">
+    <div v-if="visivel && personagem" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-stone-950  via-red-950 to-stone-950 bg-opacity-75 ">
+        <div class="w-full max-w-5xl overflow-y-auto max-h-[90vh] rounded-xl bg-gray-950 shadow-2xl">
             <div class="relative p-8">
                 <button @click="$emit('fechar')" class="absolute right-6 top-6 text-gray-400 hover:text-white transition-colors duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
