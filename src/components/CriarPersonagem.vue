@@ -44,13 +44,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 mt-10">
               <div>
                 <label for="nome" class="block text-sm font-medium text-gray-300">Nome do Personagem</label>
-                <input type="text" id="nome" v-model="form.nome"
+                <input type="text" id="nome" v-model="form.Name"
                        class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                        placeholder="Ex: Edward Anthony Cullen">
               </div>
               <div>
                 <label for="idade" class="block text-sm font-medium text-gray-300">Idade</label>
-                <input type="text" id="idade" v-model="form.idade"
+                <input type="text" id="idade" v-model="form.Idade"
                        class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                        placeholder="Ex: 17 anos (aparenta)">
               </div>
@@ -59,14 +59,14 @@
         
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 mt-10">
               <div>
-                <label for="tipoCriatura" class="block text-sm font-medium text-gray-300">Tipo de Criatura</label>
-                <input type="text" id="tipoCriatura" v-model="form.tipoCriatura"
+                <label for="tipoCriaturaNome" class="block text-sm font-medium text-gray-300">Tipo de Criatura</label>
+                <input type="text" id="tipoCriaturaNome" v-model="form.TipoCriaturaNome"
                        class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                        placeholder="Ex: Vampiro">
               </div>
               <div>
-                <label for="cla" class="block text-sm font-medium text-gray-300">Cla / Família</label>
-                <input type="text" id="cla" v-model="form.cla"
+                <label for="claNome" class="block text-sm font-medium text-gray-300">Cla / Família</label>
+                <input type="text" id="claNome" v-model="form.ClaNome"
                        class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                        placeholder="Ex: Cullen">
               </div>
@@ -74,35 +74,35 @@
 
         
             <div class="mb-10 mt-10">
-              <label for="biografia" class="block text-sm font-medium text-gray-300">História & Biografia</label>
-              <textarea id="biografia" v-model="form.biografia" rows="5"
+              <label for="descricao" class="block text-sm font-medium text-gray-300">História & Biografia</label>
+              <textarea id="descricao" v-model="form.Descricao" rows="5"
                         class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                         placeholder="Insira a biografia do personagem..."></textarea>
             </div>
 
      
-            <div class="mb-10 mt-10">
+            <!--<div class="mb-10 mt-10">
               <label for="habilidades" class="block text-sm font-medium text-gray-300">Habilidades & Poderes (separar por vírgula)</label>
-              <input type="text" id="habilidades" v-model="form.habilidades"
+              <input type="text" id="habilidades" v-model="form.Habilidades"
                      class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                      placeholder="Ex: Leitura Mental, Velocidade Sobre-humana, Força Vampírica">
-            </div>
+            </div>-->
 
        
-            <div class="mb-10 mt-10">
+            <!--<div class="mb-10 mt-10">
               <label for="personalidade" class="block text-sm font-medium text-gray-300">Personalidade (separar por vírgula)</label>
-              <input type="text" id="personalidade" v-model="form.personalidade"
+              <input type="text" id="personalidade" v-model="form.Personalidade"
                      class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                      placeholder="Ex: Protetor, Melancólico">
-            </div>
+            </div>-->
 
    
-            <div class="mb-10 mt-10">
+            <!--<div class="mb-10 mt-10">
               <label for="nivel_poder" class="block text-sm font-medium text-gray-300">Nível de Poder (1-10)</label>
-              <input type="number" id="nivel_poder" v-model.number="form.nivelPoder" min="1" max="10"
+              <input type="number" id="nivel_poder" v-model.number="form.NivelPoder" min="1" max="10"
                      class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
                      placeholder="Ex: 9">
-            </div>
+            </div>-->
 
    
             <div class="flex justify-center pt-4">
@@ -122,25 +122,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import axios from 'axios';
+import { ref } from "vue";
+import api from "../services/api"; // ✅ usa o serviço centralizado
 
 const modalAberto = ref(false);
 const urlFotoPreview = ref(null);
 
 const form = ref({
-  nome: '',
-  idade: '',
-  tipoCriatura: 0,
-  cla: 0,
-  biografia: '',
-  habilidades: '',
-  personalidade: '',
-  nivelPoder: 1,
-  foto: null
+  Name: "",
+  Idade: "",
+  TipoCriaturaNome: "",
+  ClaNome: "",
+  Descricao: "",
+  Poder: "",
+  //Personalidade: "",
+  //NivelPoder: 1,
+  FotoURL: null,
 });
 
-const emit = defineEmits(['personagem-criado']);
+const emit = defineEmits(["personagem-criado"]);
 
 const abrirModal = () => {
   modalAberto.value = true;
@@ -154,47 +154,48 @@ const fecharModal = () => {
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
-    form.value.foto = file;
-    urlFotoPreview.value = URL.createObjectURL(file);
+    form.value.FotoURL = URL.createObjectURL(file); // preview
+    urlFotoPreview.value = form.value.FotoURL;
   } else {
-    form.value.foto = null;
+    form.value.FotoURL = null;
     urlFotoPreview.value = null;
   }
 };
 
 async function salvarPersonagem() {
   const novoPersonagem = {
-    Nome: form.value.nome,
-    FotoURL: form.value.foto ? URL.createObjectURL(form.value.foto) : null,
-    Idade: form.value.idade,
-    Poder: form.value.habilidades ? form.value.habilidades.split(',').map(i => i.trim()).join(', ') : '',
-    Descricao: form.value.biografia,
-    ClaId: form.value.claId,
-    TipoCriaturaId: form.value.tipoCriaturaId
+    Name: form.value.Name,
+    FotoURL: form.value.FotoURL,
+    Idade: form.value.Idade,
+    Poder: form.value.Poder,
+    Descricao: form.value.Descricao,
+    Cla: form.value.Cla,
+    TipoCriaturaNome: form.value.TipoCriatura,
+    //PersonalidadeNome: form.value.Personalidade,
+    //NivelPoder: form.value.NivelPoder,
   };
 
   try {
-    const response = await axios.post('https://localhost:7082/api/Personagem', novoPersonagem);
-    console.log('Personagem criado:', response.data);
-    emit('personagem-criado', response.data);
+    const response = await api.post("/Personagem", novoPersonagem); // ✅ usa api.js
+    emit("personagem-criado", response.data);
     fecharModal();
     resetForm();
   } catch (error) {
-    console.error('Erro ao criar personagem:', error);
+    console.error("ERRO AO CRIAR PERSONAGEM:", error);
   }
 }
 
 const resetForm = () => {
   form.value = {
-    nome: '',
-    idade: '',
-    tipoCriatura: '',
-    cla: '',
-    biografia: '',
-    habilidades: '',
-    personalidade: '',
-    nivelPoder: 1,
-    foto: null
+    Name: "",
+    Idade: "",
+    TipoCriaturaNome: "",
+    ClaNome: "",
+    Descricao: "",
+    Poder: "",
+    //Personalidade: "",
+    //NivelPoder: 1,
+    FotoURL: null,
   };
   urlFotoPreview.value = null;
 };

@@ -4,14 +4,11 @@
       <img :src="personagem.FotoURL" :alt="personagem.Name" class="w-full h-full object-cover" /> 
       <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-      <div class="absolute border-1 rounded-full p-1 top-2 right-2 text-red-500 font-semibold text-sm">
-        {{ personagem.TipoCriatura ? personagem.TipoCriatura.nome : 'N/A' }} 
-      </div>
+     <!--<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded-full text-xs">
+        {{ personagem.Poder || 'N/A' }}
+      </span>--> 
 
       <div class="absolute bottom-3 left-3">
-        <p class="text-yellow-400 font-semibold flex items-center" v-if="personagem.Cla">
-          {{ personagem.Cla.nome }}
-        </p>
         <h2 class="text-xl font-bold">{{ personagem.Name }}</h2>
       </div>
     </div>
