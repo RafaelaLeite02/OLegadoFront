@@ -28,10 +28,9 @@
     <section class="flex flex-wrap m-6 items-center w-[95%] ml-30">
       <Card 
         v-for="personagem in personagens" 
-        :key="personagem.Id" 
+        :key="personagem.id" 
         :personagem="personagem"
-        @abrir="abrirModalComPersonagem" 
-        @editar="iniciarEdicao"
+        @abrir-modal="abrirModalComPersonagem" 
         @deletar="deletarPersonagem"
       />
     </section>
@@ -40,7 +39,7 @@
     <Modal
       v-if="modalDetalhesVisivel"
       :personagem="personagemSelecionado"
-      @fechar="fecharModal"
+      @fechar="fecharModalDetalhes"
       @deletar="deletarPersonagem"
       @editar="iniciarEdicao"
     />
@@ -54,13 +53,15 @@
       @personagem-editado="recarregarPersonagensEFechar"
     />
 
-    <!-- Botão adicionar -->
     <button 
-      @click="abrirModalCriar"
-      class="mt-6 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
-    >
-      Adicionar Personagem
-    </button>
+    @click="abrirModalCriar"
+    class="text-neutral-300 border-0 bg-gradient-to-r from-stone-950 via-gray-900 to-stone-950 text-xl
+               hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200
+               duration-300 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)] cursor-pointer"
+> Adicionar
+    
+</button>
+    
   </main>
 </template>
 
@@ -76,16 +77,18 @@ const personagemSelecionado = ref(null); // Usado para o Modal de Detalhes
 const personagemSendoEditado = ref(null); // Usado para o Modal de Criação/Edição
 const modalDetalhesVisivel = ref(false); // Renomeado para maior clareza
 const modalCriarPersonagemVisivel = ref(false);
+const filtroAtivo = ref('Todos');
 
 // ----------------------------------------------------------------------
 // ## API
 // ----------------------------------------------------------------------
 
 // Função Principal: Carrega todos os Cards (GET /Personagem)
-async function carregarPersonagens() {
+async function carregarPersonagens(filtro = 'Todos') {
   try {
-    const response = await api.get("/Personagem");
+    const response = await api.get(`/Personagem?filtro=${filtro}`);
     personagens.value = response.data;
+    console.log("DADOS RECEBIDOS:", response.data); 
   } catch (error) {
     console.error("Erro ao carregar dados da API:", error);
   }
@@ -106,7 +109,7 @@ async function buscarDetalhesPersonagem(id) {
 const deletarPersonagem = async (personagemParaDeletar) => {
   try {
     // É uma boa prática pedir confirmação aqui
-    if (confirm(`Tem certeza que deseja deletar ${personagemParaDeletar.Nome}?`)) {
+    if (confirm(`Tem certeza que deseja deletar ${personagemParaDeletar.name}?`)) {
       await api.delete(`/Personagem/${personagemParaDeletar.id}`); // Assumindo que o ID é 'id' (minúsculo) no backend C#
       await carregarPersonagens(); // Recarrega a lista
       fecharModalDetalhes(); // Fecha o modal após deletar
@@ -121,12 +124,39 @@ const deletarPersonagem = async (personagemParaDeletar) => {
 // ----------------------------------------------------------------------
 
 // ATUALIZADO: Busca os detalhes mais recentes antes de abrir o modal
-const abrirModalComPersonagem = async (personagem) => {
-  const detalhes = await buscarDetalhesPersonagem(personagem.id);
-  if (detalhes) {
-    personagemSelecionado.value = detalhes;
-    modalDetalhesVisivel.value = true;
-  }
+const abrirModalComPersonagem = async (personagemDoCard) => {
+    
+    // TENTATIVA 1: ID Minúsculo (esperado)
+    let idParaBuscar = personagemDoCard.id; 
+    
+    // TENTATIVA 2: ID Maiúsculo (se o serializer do C# forçá-lo)
+    if (!idParaBuscar) {
+        idParaBuscar = personagemDoCard.Id;
+    }
+    
+    // Se o ID ainda for inválido, pare a função
+    if (!idParaBuscar) {
+        console.error("ID do Personagem é inválido (null/undefined). Não é possível buscar detalhes.");
+        alert("Erro: ID do personagem não encontrado.");
+        return; 
+    }
+
+    console.log(`1. INICIANDO BUSCA DE DETALHES PARA ID: ${idParaBuscar}`);
+
+    // 1. Pega os detalhes completos da API (usando o ID que achamos)
+    const detalhes = await buscarDetalhesPersonagem(idParaBuscar); 
+    
+    if (detalhes) {
+        console.log("2. DETALHES RECEBIDOS. ABRINDO MODAL.");
+        
+         modalCriarPersonagemVisivel.value = false;
+        // Atribui os dados e abre o modal
+        personagemSelecionado.value = detalhes;
+        modalDetalhesVisivel.value = true;
+    } else {
+        // A busca falhou (o GET por ID retornou 404/500), então o modal não abre.
+        console.warn("2. Falha ao obter detalhes completos. Modal não será aberto.");
+    }
 };
 
 const fecharModalDetalhes = () => {
@@ -170,6 +200,6 @@ const fecharModalCriar = () => {
 // ----------------------------------------------------------------------
 
 onMounted(() => {
-  carregarPersonagens();
+  carregarPersonagens(filtroAtivo.value);
 });
 </script>
