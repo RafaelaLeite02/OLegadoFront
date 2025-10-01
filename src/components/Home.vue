@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto h-220 bg-gradient-to-b from-stone-950  via-gray-800 to-stone-950 flex flex-col p-8">
+    <div class="w-auto h-250 bg-gradient-to-b from-stone-950  via-gray-800 to-stone-950 flex flex-col p-8">
         <div class=" flex flex-col justify-center p-30 items-center ">
             <div class="text-red-100 flex items-center justify-center">
                 <img src="/public/img/coracaoicon.png" alt="coração" class="w-12 m-3" />

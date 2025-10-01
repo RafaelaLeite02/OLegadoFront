@@ -3,8 +3,8 @@
 
     <section @click="abrirModal" class="w-160 flex flex-col items-center text-center p-5 pt-15">
       <button
-        class="text-neutral-300 border-0 bg-gradient-to-r from-stone-950 via-gray-900 to-stone-950 text-xl
-               hover:text-[18px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200
+        class="text-neutral-300 border-0 bg-gradient-to-r from-stone-950 via-gray-900 to-stone-950 text-[30px]
+               hover:text-[35px] hover:text-red-700 hover:font-weight:900 transition-transform delay-200
                duration-300 ease-in-out hover:scale-130 hover:[text-shadow:0px_0px_50px_rgba(255,255,255,0.6)] cursor-pointer">
         Adicionar Personagem
       </button>
