@@ -46,6 +46,43 @@
               <p class="mt-3 text-[15px] text-gray-400">Clique na área acima para carregar uma imagem</p>
             </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 mt-10">
+
+              <div>
+                <label for="fonteMidia" class="block text-sm font-bold mb-2 text-neutral-300">
+                  Origem da Mídia
+                </label>
+                <select id="fonteMidia" v-model="form.fonteMidia"
+                  class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50">
+                  <option value="Livros">Livro</option>
+                  <option value="Filme">Filme</option>
+                  <option value="Ambos">Ambos</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="fonteId" class="block text-sm font-bold mb-2 text-neutral-300">
+                  Título Específico
+                </label>
+
+                <select v-if="form.fonteMidia === 'Livros'" id="livroId" v-model="form.livroId"
+                  class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50">
+                  <option :value="null" disabled>Selecione o Livro</option>
+                  <option v-for="livro in listaLivros" :key="livro.id" :value="livro.id">
+                    {{ livro.nome }}
+                  </option>
+                </select>
+
+                <select v-else-if="form.fonteMidia === 'Filme'" id="filmeId" v-model="form.filmeId"
+                  class="mt-1 block w-full rounded-md bg-gray-800 border border-gray-700 text-white p-3 focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50">
+                  <option :value="null" disabled>Selecione o Filme</option>
+                  <option v-for="filme in listaFilmes" :key="filme.id" :value="filme.id">
+                    {{ filme.nome }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 mt-10">
               <div>
@@ -130,11 +167,13 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
-import api from "../services/api"; 
+import { ref, defineEmits, onMounted, reactive } from "vue";
+import api from "../services/api";
 
 const modalAberto = ref(false);
 const urlFotoPreview = ref(null);
+const listaLivros = ref([]);
+const listaFilmes = ref([]);
 
 const form = ref({
   name: "",
@@ -143,10 +182,13 @@ const form = ref({
   claNome: "",
   descricao: "",
   poder: "",
-  habilidades: "",      
+  habilidades: "",
   personalidade: "",
   nivelPoder: 1,
   fotoURL: null,
+  fonteMidia: 'Livros', // Valor padrão
+  livroId: null,
+  filmeId: null,
 });
 
 const emit = defineEmits(["personagem-criado"]);
@@ -171,7 +213,35 @@ const handleFileUpload = (event) => {
   }
 };
 
+onMounted(async () => {
+  try {
+    // Assume que as rotas api/Livro/lista e api/Filme/lista estão prontas.
+    const [resLivros, resFilmes] = await Promise.all([
+      api.get('/Livro/lista'),
+      api.get('/Filme/lista')
+    ]);
+
+    listaLivros.value = resLivros.data;
+    listaFilmes.value = resFilmes.data;
+  } catch (error) {
+    console.error("Erro ao carregar listas de Livros/Filmes:", error);
+  }
+});
+
+
 async function salvarPersonagem() {
+
+  if (form.value.fonteMidia === 'Livros') {
+    form.value.filmeId = null; // Zera o ID do filme
+  } else if (form.value.fonteMidia === 'Filme') {
+    form.value.livroId = null; // Zera o ID do livro
+  }else if (form.value.fonteMidia === 'Ambos') {
+  // aqui o usuário pode escolher os dois
+  // então NÃO zeramos nada
+  } else {
+    form.value.livroId = null;
+    form.value.filmeId = null;
+  }
 
   const novoPersonagem = {
     name: form.value.name,
@@ -184,6 +254,9 @@ async function salvarPersonagem() {
     habilidades: form.value.habilidades || "",
     personalidade: form.value.personalidade,
     nivelPoder: form.value.nivelPoder,
+    livroId: form.value.livroId,
+    filmeId: form.value.filmeId,
+    fonteMidia: form.value.fonteMidia,
 
   };
 
@@ -216,6 +289,9 @@ const resetForm = () => {
     personalidade: "",
     nivelPoder: 1,
     fotoURL: null,
+    fonteMidia: 'Livros', // Resetar o filtro padrão
+    livroId: null,
+    filmeId: null,
   };
   urlFotoPreview.value = null;
 };
