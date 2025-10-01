@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-stone-950  via-red-950 to-stone-950 bg-opacity-75 ">
+    <div class="fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-b from-stone-950  via-red-950 to-stone-950 bg-opacity-75 ">
         <div class="w-full max-w-5xl overflow-y-auto max-h-[90vh] rounded-xl bg-gradient-to-b from-stone-950 via-red-950 to-stone-950 bg-opacity-75 shadow-2xl">
             <div class="relative p-8">
                 <button @click="$emit('fechar')" class="absolute right-6 top-6 text-gray-400 hover:text-white transition-colors duration-200">
@@ -56,10 +56,10 @@
                             </p></h2>
                             
                         </div>
-                        <div v-if="personagem.habilidades">
+                        <div v-if="personagem.habilidades.length > 0">
                             <h2 class="mb-3 text-2xl font-bold text-neutral-300">Habilidades & Poderes</h2>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="flex items-center gap-3 rounded-lg bg-gray-800 p-3" v-for="habilidade in personagem.habilidades" :key="habilidade">
+                                <div class="flex items-center gap-3 rounded-lg bg-gray-800 p-3" v-for="habilidade in habilidadesListadas" :key="habilidade">
                                     <span class="h-3 w-3 rounded-full bg-red-600"></span>
                                     <span class="text-sm font-semibold text-gray-200">{{ habilidade }}</span>
                                 </div>
@@ -67,10 +67,10 @@
                         </div>
                     </div>
                     <div class="md:w-1/3 md:pl-8 mt-8 md:mt-0 space-y-8">
-                        <div v-if="personagem.personalidade">
+                        <div v-if="personagem.personalidade.length > 0">
                             <h2 class="mb-3 text-2xl font-bold text-neutral-300">Personalidade</h2>
                             <ul class="space-y-3">
-                                <li class="flex items-center gap-2 text-gray-300" v-for="caracteristica in personagem.personalidade" :key="caracteristica">
+                                <li class="flex items-center gap-2 text-gray-300" v-for="caracteristica in personalidadesListadas" :key="caracteristica">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                     </svg>
@@ -96,7 +96,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, computed } from 'vue';
 
 const props = defineProps({
     visivel: {
@@ -107,6 +107,32 @@ const props = defineProps({
         type: Object,
         default: null
     }
+});
+
+const habilidadesListadas = computed(() => {
+    // CORREÇÃO CRÍTICA: Se o objeto personagem for nulo, retorna um array vazio.
+    if (!props.personagem || !props.personagem.habilidades) { 
+        return [];
+    }
+    
+    // Processa a string se ela existir
+    return props.personagem.habilidades
+        .split(',')
+        .map(h => h.trim()) 
+        .filter(h => h.length > 0);
+});
+
+const personalidadesListadas = computed(() => {
+    // CORREÇÃO CRÍTICA: Se o objeto personagem for nulo, retorna um array vazio.
+    if (!props.personagem || !props.personagem.personalidade) {
+        return [];
+    }
+    
+    // Processa a string se ela existir
+    return props.personagem.personalidade
+        .split(',')
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
 });
 
 

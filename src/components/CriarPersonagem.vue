@@ -143,7 +143,7 @@ const form = ref({
   claNome: "",
   descricao: "",
   poder: "",
-  habilidades: "",
+  habilidades: "",      
   personalidade: "",
   nivelPoder: 1,
   fotoURL: null,
