@@ -13,13 +13,13 @@
       <div
         class="w-[19%] ml-[40%] h-15 flex flex-row justify-between text-center item-center rounded-full text-neutral-50 p-2">
         <a @click.prevent="setFiltro('Todos')" :class="{ 'border-red-700 text-red-700 ': filtroAtivo === 'Todos' }"
-          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text[25px]">Todos</a>
+          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-19 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[22px]">Todos</a>
         <a @click.prevent="setFiltro('Livros')" :class="{ 'border-red-700 text-red-700': filtroAtivo === 'Livros' }"
-          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer">Livros</a>
+          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-19 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[22px]">Livros</a>
         <a @click.prevent="setFiltro('Filme')" :class="{ 'border-red-700 text-red-700': filtroAtivo === 'Filme' }"
-          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer">Filme</a>
+          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-19 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[22px]">Filme</a>
       </div>
-      <p class="text-neutral-50 m-5 text[20px]">
+      <p class="text-neutral-50 m-5 text-[18px]">
         <strong class="text-red-600 font-normal">{{ personagens.length }}</strong> personagens
       </p>
     </section>
