@@ -3,7 +3,7 @@
     <h1 class="text-neutral-50 text-[50px]">
       Os <strong class="text-red-600 font-normal">Imortais</strong>
     </h1>
-    <p class="text-neutral-50 text-[25px] m-5">
+    <p class="text-neutral-50 text-[20px] m-5">
       Cada personagem carrega consigo séculos de história, poder e mistério.
       Explore suas origens, habilidades e os laços que os unem nesta saga eterna.
     </p>
@@ -13,18 +13,18 @@
       <div
         class="w-[19%] ml-[40%] h-15 flex flex-row justify-between text-center item-center rounded-full text-neutral-50 p-2">
         <a @click.prevent="setFiltro('Todos')" :class="{ 'border-red-700 text-red-700 ': filtroAtivo === 'Todos' }"
-          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-19 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[22px]">Todos</a>
+          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[18px]">Todos</a>
         <a @click.prevent="setFiltro('Livros')" :class="{ 'border-red-700 text-red-700': filtroAtivo === 'Livros' }"
-          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-19 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[22px]">Livros</a>
+          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[18px]">Livros</a>
         <a @click.prevent="setFiltro('Filme')" :class="{ 'border-red-700 text-red-700': filtroAtivo === 'Filme' }"
-          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-19 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[22px]">Filme</a>
+          class="flex border-b-2 border-neutral-500 text-neutral-500 h-11 w-16 p-2 hover:border-red-700 hover:text-red-700 transition cursor-pointer text-[18px]">Filme</a>
       </div>
-      <p class="text-neutral-50 m-5 text-[18px]">
+      <p class="text-neutral-50 m-5 text-[15px]">
         <strong class="text-red-600 font-normal">{{ personagens.length }}</strong> personagens
       </p>
     </section>
 
-    <section class="flex flex-wrap m-6 items-center w-[90%] ml-130 ">
+    <section class="flex flex-wrap m-6 items-center w-[90%] ml-60 ">
       <Card v-for="personagem in personagens" :key="personagem.id" :personagem="personagem"
         @abrir-modal="abrirModalComPersonagem" @deletar="deletarPersonagem" />
     </section>

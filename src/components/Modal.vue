@@ -14,15 +14,7 @@
                 </button>
 
                 <div class="absolute top-6 left-6 flex space-x-2">
-                    <button @click="$emit('editar', personagem)"
-                        class="p-2 rounded-full text-white bg-blue-900 hover:bg-blue-600 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                            <path fill-rule="evenodd"
-                                d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                 
                     <button @click="$emit('deletar', personagem)"
                         class="p-2 rounded-full text-white bg-red-900 hover:bg-red-700 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -48,7 +40,6 @@
                         </div>
                     </div>
                     <h1 class="text-5xl font-bold text-white">{{ personagem.name }}</h1>
-                    <p class="mt-1 text-lg text-gray-400">{{ personagem.tipoCriatura }}</p>
                 </div>
 
                 <div class="flex flex-col md:flex-row p-6">
@@ -76,7 +67,7 @@
 
                         </div>
                         <div>
-                            <h2 class="mb-3 text-2xl font-bold text-neutral-300">Fonte de Mídia</h2>
+                            <h2 class="mb-3 text-2xl font-bold text-neutral-300">Origem</h2>
                             <p
                                 class="text-gray-300 leading-relaxed text-base font-normal items-center gap-3 rounded-lg bg-gray-800 p-3 mt-3">
                                 {{ personagem.fonteMidia }}
@@ -110,7 +101,7 @@
                             </ul>
                         </div>
                         <div v-if="personagem.nivelPoder">
-                            <h2 class="mb-3 text-2xl font-bold text-neutral-300">Estatísticas</h2>
+                            <h2 class="mb-3 text-2xl font-bold text-neutral-300">Poder</h2>
                             <div class="flex flex-col items-center">
                                 <span class="text-6xl font-bold text-red-600">{{ personagem.nivelPoder }}</span>
                                 <span class="text-lg text-gray-400">Nível de Poder</span>
@@ -142,12 +133,11 @@ const props = defineProps({
 });
 
 const habilidadesListadas = computed(() => {
-    // CORREÇÃO CRÍTICA: Se o objeto personagem for nulo, retorna um array vazio.
+
     if (!props.personagem || !props.personagem.habilidades) {
         return [];
     }
 
-    // Processa a string se ela existir
     return props.personagem.habilidades
         .split(',')
         .map(h => h.trim())
@@ -155,12 +145,11 @@ const habilidadesListadas = computed(() => {
 });
 
 const personalidadesListadas = computed(() => {
-    // CORREÇÃO CRÍTICA: Se o objeto personagem for nulo, retorna um array vazio.
+
     if (!props.personagem || !props.personagem.personalidade) {
         return [];
     }
 
-    // Processa a string se ela existir
     return props.personagem.personalidade
         .split(',')
         .map(p => p.trim())

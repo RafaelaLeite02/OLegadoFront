@@ -41,7 +41,7 @@
                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-2-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <input type="file" id="foto" name="foto" @change="handleFileUpload"
-                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
               </div>
               <p class="mt-3 text-[15px] text-gray-400">Clique na área acima para carregar uma imagem</p>
             </div>
@@ -185,8 +185,8 @@ const form = ref({
   habilidades: "",
   personalidade: "",
   nivelPoder: 1,
-  fotoURL: null,
-  fonteMidia: 'Livros', // Valor padrão
+  imageBase64: null,
+  fonteMidia: 'Livros',
   livroId: null,
   filmeId: null,
 });
@@ -204,18 +204,26 @@ const fecharModal = () => {
 
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
-  if (file) {
-    form.value.fotoURL = URL.createObjectURL(file); // preview
-    urlFotoPreview.value = form.value.fotoURL;
-  } else {
-    form.value.fotoURL = null;
-    urlFotoPreview.value = null;
+  if (!file) {
+    form.value.imageBase64 = null; 
+    urlFotoPreview.value = null; 
+    return;
   }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const fullDataUrl = e.target.result; 
+    const base64 = fullDataUrl.split(",")[1]; 
+
+    form.value.imageBase64 = base64; 
+    urlFotoPreview.value = fullDataUrl; 
+  };
+
+  reader.readAsDataURL(file);
 };
 
 onMounted(async () => {
   try {
-    // Assume que as rotas api/Livro/lista e api/Filme/lista estão prontas.
     const [resLivros, resFilmes] = await Promise.all([
       api.get('/Livro/lista'),
       api.get('/Filme/lista')
@@ -232,12 +240,11 @@ onMounted(async () => {
 async function salvarPersonagem() {
 
   if (form.value.fonteMidia === 'Livros') {
-    form.value.filmeId = null; // Zera o ID do filme
+    form.value.filmeId = null;
   } else if (form.value.fonteMidia === 'Filme') {
-    form.value.livroId = null; // Zera o ID do livro
-  }else if (form.value.fonteMidia === 'Ambos') {
-  // aqui o usuário pode escolher os dois
-  // então NÃO zeramos nada
+    form.value.livroId = null;
+  } else if (form.value.fonteMidia === 'Ambos') {
+
   } else {
     form.value.livroId = null;
     form.value.filmeId = null;
@@ -245,7 +252,8 @@ async function salvarPersonagem() {
 
   const novoPersonagem = {
     name: form.value.name,
-    fotoURL: form.value.fotoURL,
+    ImagemBase64: form.value.imageBase64,
+    FotoUrl: null,
     idade: form.value.idade,
     poder: form.value.poder,
     descricao: form.value.descricao,
@@ -261,7 +269,7 @@ async function salvarPersonagem() {
   };
 
   try {
-    const response = await api.post("/Personagem", novoPersonagem); // ✅ usa api.js
+    const response = await api.post("/Personagem", novoPersonagem);
     alert('Personagem criado com sucesso!');
     emit("personagem-criado", response.data);
     fecharModal();
@@ -271,6 +279,9 @@ async function salvarPersonagem() {
 
     if (error.response && error.response.data) {
       alert(`Falha ao criar personagem: ${JSON.stringify(error.response.data)}`);
+      const errorData = error.response.data;
+      const errorTitle = errorData.title || "Erro de validação";
+      const errorDetails = Object.values(errorData.errors || {}).flat().join('\n');
     } else {
       alert('Falha ao conectar com a API. Verifique o console.');
     }
@@ -288,8 +299,8 @@ const resetForm = () => {
     habilidades: "",
     personalidade: "",
     nivelPoder: 1,
-    fotoURL: null,
-    fonteMidia: 'Livros', // Resetar o filtro padrão
+    imageBase64: null,
+    fonteMidia: 'Livros',
     livroId: null,
     filmeId: null,
   };
